@@ -10,20 +10,20 @@ namespace Logger
 
         static void Main(string[] args)
         {
-            //var logger = new LoggerFactory().GetLogger(LogType.EventLog);
 
-            //// what happens if multiple Log requests are made in the same time? - e.g. when writing to file/eventlog - should lock or not?
-            //logger.Log("Test");
+            //var instance1 = LoggerSingleton.Instance;
+            //var instace2 = LoggerSingleton.Instance;
 
-            var instance1 = LoggerSingleton.Instance;
-            var instace2 = LoggerSingleton.Instance;
-           
-            if (instance1 == instace2)
-            {
-                LoggerSingleton.Instance.Log("Equal");
-            }
-            
-            LoggerSingleton.Instance.Log("!!!!!!!!!!!!!!!!!!1");
+            // Same instance
+            //if (instance1 == instace2)
+            //{
+            //    LoggerSingleton.Instance.Log("Equal");
+            //}
+
+            //LoggerSingleton.Instance.Log("!!!!!!!!!!!!!!!!!!1");
+
+
+            TestMultiThreading();
 
             Console.ReadLine();
         }
@@ -46,7 +46,7 @@ namespace Logger
             }
 
             //both threads will execute code here concurrently
-            LoggerSingleton.Instance.Log(LoggerSingleton.Instance.GetHashCode().ToString());
+            LoggerSingleton.Instance.Log(LoggerSingleton.Instance.Counter.ToString());
         }
     }
 }

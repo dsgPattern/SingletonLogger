@@ -2,19 +2,23 @@
 {
     public class LoggerFactory
     {
+        private EventLogger _eventLogger;
+        private FileLogger _fileLogger;
+        private ConsoleLogger _defaultLogger;
+
         public LoggerBase GetLogger(LogType logType)
         {
             switch (logType)
             {
                 case LogType.EventLog:
-                    return new EventLogger();
+                    return _eventLogger ??= new EventLogger();
 
                 case LogType.File:
-                    return new FileLogger();
+                    return _fileLogger ??= new FileLogger();
 
                 case LogType.Console:
                 default:
-                    return new ConsoleLogger();
+                    return _defaultLogger ??= new ConsoleLogger();
 
             }
         }
